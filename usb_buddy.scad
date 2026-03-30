@@ -88,7 +88,7 @@ difference() {
             if (i==0){ cut_front("C",3.2,pod_x/2,pod_z*0.65); cut_front("v",2.8,pod_x/2,pod_z*0.22); }
             if (i==num_slots-1){ cut_front("A",3.2,pod_x/2,pod_z*0.78); cut_front("^",2.8,pod_x/2,pod_z*0.55); }
             // Rear
-            if (i==5) cut_rear_bt(pod_x/2,pod_z*0.5);
+            // pod 5 blank
             else if (rl!="") cut_rear(rl,4.5,pod_x/2,pod_z*0.5);
         }
     }
