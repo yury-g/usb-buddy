@@ -1,7 +1,5 @@
-// USB BUDDY Ñ v7
-// Front: C | U S B B U D D Y | A
-// Rear: y u r y g [BT-outline] 2 0 2 6
-// BT symbol: Nordic B outline Ñ spine + two triangle outlines, stroke-cut into rear face
+// USB BUDDY Ñ v8
+// BT symbol stepped down: s=4.5 (9mm total, matches letter height feel)
 
 num_slots   = 10;
 wall        = 2.0;
@@ -62,15 +60,10 @@ module cut_rear(txt, sz, cx, cz) {
                      font="Liberation Sans:style=Bold");
 }
 
-// Nordic B outline Ñ cut into rear face (Y=pod_y)
-// s = half-height of symbol
-// stroke t = line thickness for printable outline
-// Spine + upper triangle outline + lower triangle outline
-// All as thin linear_extrude slabs from rear face
 module cut_rear_bt(cx, cz) {
-    s  = 6.5;   // half-height Ñ symbol total height = 13mm, larger than letters
-    t  = 0.9;   // stroke thickness
-    tx = 14.5;  // tip x offset (right-pointing triangles)
+    s  = 4.5;   // half-height Ñ 9mm total, larger than letters but not huge
+    t  = 0.8;   // stroke thickness
+    tx = 10.0;  // tip x offset
 
     translate([cx, pod_y - depth + 0.01, cz])
         rotate([-90, 0, 0])
@@ -78,28 +71,23 @@ module cut_rear_bt(cx, cz) {
                 // Spine
                 translate([-t/2, -s])
                     square([t, s*2]);
-                // Upper triangle Ñ 3 strokes
-                // left leg: from (0,-s) to (0,0) Ñ covered by spine
-                // top-left to tip: (0,-s) -> (tx,-(s/2))
+                // Upper triangle: top -> tip -> center
                 hull() {
-                    translate([-t/2, -s])       square([t, t]);
+                    translate([-t/2, -s])         square([t, t]);
                     translate([tx-t/2, -s/2-t/2]) square([t, t]);
                 }
-                // tip to center: (tx,-(s/2)) -> (0,0)
                 hull() {
                     translate([tx-t/2, -s/2-t/2]) square([t, t]);
-                    translate([-t/2, -t/2])       square([t, t]);
+                    translate([-t/2, -t/2])        square([t, t]);
                 }
-                // Lower triangle
-                // center to tip: (0,0) -> (tx, s/2)
+                // Lower triangle: center -> tip -> bottom
                 hull() {
-                    translate([-t/2, -t/2])       square([t, t]);
-                    translate([tx-t/2, s/2-t/2])  square([t, t]);
+                    translate([-t/2, -t/2])        square([t, t]);
+                    translate([tx-t/2, s/2-t/2])   square([t, t]);
                 }
-                // tip to bottom: (tx, s/2) -> (0,s)
                 hull() {
-                    translate([tx-t/2, s/2-t/2])  square([t, t]);
-                    translate([-t/2, s-t])         square([t, t]);
+                    translate([tx-t/2, s/2-t/2])   square([t, t]);
+                    translate([-t/2, s-t])          square([t, t]);
                 }
             }
 }
@@ -119,9 +107,7 @@ module pod(idx) {
         translate([pod_x/2 - vent_w/2, pod_y/2 - vent_d/2, -0.1])
             cube([vent_w, vent_d, c_floor + 0.2]);
 
-        if (fl != "") {
-            cut_front(fl, 4.5, pod_x/2, pod_z * 0.5);
-        }
+        if (fl != "") cut_front(fl, 4.5, pod_x/2, pod_z * 0.5);
         if (idx == 0) {
             cut_front("C", 3.2, pod_x/2, pod_z * 0.65);
             cut_front("v", 2.8, pod_x/2, pod_z * 0.22);
