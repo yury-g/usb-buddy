@@ -6,7 +6,7 @@ wall        = 2.0;
 strip_t     = 0.9;
 gap         = 1.2;
 depth       = 0.7;
-ch          = 1.0;   // chamfer size
+ch          = 2.0;   // chamfer size
 
 a_w         = 12.0;
 a_h         = 5.5;
