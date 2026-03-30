@@ -1,17 +1,17 @@
-// USB BUDDY Ñ v15
-// 1mm chamfer on all 4 vertical outside edges of each pod
+// USB BUDDY Ñ v17
+// strip_t=1.2mm, gap=2.0mm, 2mm chamfer on vertical edges
+// Chamfer starts at z=ch from pod base so base is flush on strip
 
 num_slots   = 10;
 wall        = 2.0;
-strip_t     = 0.9;
-gap         = 1.2;
+strip_t     = 1.2;
+gap         = 2.0;
 depth       = 0.7;
-ch          = 2.0;   // chamfer size
+ch          = 2.0;
 
 a_w         = 12.0;
 a_h         = 5.5;
 a_cap       = 2.0;
-
 c_w         = 8.31;
 c_h         = 3.2;
 c_cap       = 2.0;
@@ -20,14 +20,11 @@ sep         = 0.8;
 
 pod_y       = a_w + wall * 2;
 pod_x       = a_h + wall * 2;
-
 c_top_z     = c_floor + c_h + c_cap;
 a_slot_z    = c_top_z + sep;
 pod_z       = a_slot_z + a_h + a_cap;
-
 c_slot_h    = strip_t + c_floor + c_h + c_cap + 0.1;
 air_slot_h  = sep + 0.1;
-
 pitch       = pod_x + gap;
 strip_len   = num_slots * pod_x + (num_slots - 1) * gap;
 
@@ -42,28 +39,16 @@ module oval_thru(sw,cx,cy,h) {
     }
 }
 
-// Chamfered pod: 4 vertical edges chamfered by ch
-// Built as intersection of pod cube with corner cuts
+// Chamfer only on upper portion Ñ base ch mm is square (flush on strip)
 module chamfered_pod() {
     difference() {
         cube([pod_x, pod_y, pod_z]);
-        // 4 vertical corner cuts Ñ 45deg prisms running full Z height
-        // Front-left corner (x=0, y=0)
-        translate([0, 0, -0.1])
-            linear_extrude(pod_z+0.2)
-                polygon([[0,0],[ch,0],[0,ch]]);
-        // Front-right corner (x=pod_x, y=0)
-        translate([pod_x, 0, -0.1])
-            linear_extrude(pod_z+0.2)
-                polygon([[0,0],[-ch,0],[0,ch]]);
-        // Rear-left corner (x=0, y=pod_y)
-        translate([0, pod_y, -0.1])
-            linear_extrude(pod_z+0.2)
-                polygon([[0,0],[ch,0],[0,-ch]]);
-        // Rear-right corner (x=pod_x, y=pod_y)
-        translate([pod_x, pod_y, -0.1])
-            linear_extrude(pod_z+0.2)
-                polygon([[0,0],[-ch,0],[0,-ch]]);
+        // Start chamfer at z=ch, run to top
+        h = pod_z - ch + 0.1;
+        translate([0,    0,    ch]) linear_extrude(h) polygon([[0,0],[ch,0],[0,ch]]);
+        translate([pod_x,0,    ch]) linear_extrude(h) polygon([[0,0],[-ch,0],[0,ch]]);
+        translate([0,    pod_y,ch]) linear_extrude(h) polygon([[0,0],[ch,0],[0,-ch]]);
+        translate([pod_x,pod_y,ch]) linear_extrude(h) polygon([[0,0],[-ch,0],[0,-ch]]);
     }
 }
 
@@ -81,43 +66,23 @@ difference() {
     union() {
         cube([strip_len, pod_y, strip_t]);
         for (i=[0:num_slots-1])
-            translate([i*pitch, 0, strip_t])
-                chamfered_pod();
+            translate([i*pitch,0,strip_t]) chamfered_pod();
     }
 
-    // Gaps between pods
     for (i=[0:num_slots-2])
-        translate([i*pitch+pod_x, 0, strip_t-0.01])
-            cube([gap, pod_y, pod_z+0.02]);
+        translate([i*pitch+pod_x,0,strip_t-0.01])
+            cube([gap,pod_y,pod_z+0.1]);
 
     for (i=[0:num_slots-1]) {
         fl=front_letters[i]; rl=rear_letters[i];
-
-        // USB-C oval through bottom
-        translate([i*pitch, 0, -0.1])
-            oval_thru(c_w, pod_x/2, pod_y/2, c_slot_h);
-
-        translate([i*pitch, 0, strip_t]) {
-            // Air gap through separator
-            translate([wall, wall, c_top_z])
-                cube([pod_x-wall*2, pod_y-wall*2, air_slot_h]);
-
-            // USB-A slot from top
-            translate([wall, wall, a_slot_z])
-                cube([a_h, a_w, a_h+a_cap+0.1]);
-
-            // Front labels
+        translate([i*pitch,0,-0.1])
+            oval_thru(c_w,pod_x/2,pod_y/2,c_slot_h);
+        translate([i*pitch,0,strip_t]) {
+            translate([wall,wall,c_top_z]) cube([pod_x-wall*2,pod_y-wall*2,air_slot_h]);
+            translate([wall,wall,a_slot_z]) cube([a_h,a_w,a_h+a_cap+0.1]);
             if (fl!="") cut_front(fl,4.5,pod_x/2,a_slot_z+a_h*0.45);
-            if (i==0){
-                cut_front("C",3.2,pod_x/2,c_floor+c_h*0.5);
-                cut_front("v",2.0,pod_x/2,c_floor*0.45);
-            }
-            if (i==num_slots-1){
-                cut_front("A",3.2,pod_x/2,a_slot_z+a_h*0.5);
-                cut_front("^",2.0,pod_x/2,a_slot_z+a_h+a_cap*0.5);
-            }
-
-            // Rear labels
+            if (i==0){ cut_front("C",3.2,pod_x/2,c_floor+c_h*0.5); cut_front("v",2.0,pod_x/2,c_floor*0.45); }
+            if (i==num_slots-1){ cut_front("A",3.2,pod_x/2,a_slot_z+a_h*0.5); cut_front("^",2.0,pod_x/2,a_slot_z+a_h+a_cap*0.5); }
             if (rl!="") cut_rear(rl,4.5,pod_x/2,pod_z*0.5);
         }
     }
