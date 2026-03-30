@@ -1,10 +1,8 @@
-// USB BUDDY Ñ v2
-// Front: C | U S B B U D D Y | A  (end pods have connector markers)
-// Rear: blank (write-in later)
-// USB-A slot: 12.0mm wide x 5.5mm tall, locked from final print
-// USB-C slot: 8.31mm oval x 3.2mm tall, locked from final print
-// wall=2.0, floor=1.6, cap=2.0 both ends
-// Islands on 0.9mm flex strip, floor vent only
+// USB BUDDY Ñ v3
+// Front: C | U S B B U D D Y | A
+// Rear: yury-g (left 2 pods) | blank middle 6 | 2026 (right 2 pods)
+// USB-A: 12.0mm x 5.5mm rect, USB-C: 8.31mm oval x 3.2mm
+// wall=2.0, floor=1.6, cap=2.0, flex strip 0.9mm
 
 num_slots   = 10;
 wall        = 2.0;
@@ -12,30 +10,20 @@ strip_t     = 0.9;
 gap         = 1.2;
 depth       = 0.7;
 
-// USB-A dims (final printed)
 a_w         = 12.0;
 a_h         = 5.5;
 a_cap       = 2.0;
 a_floor     = 1.6;
 
-// USB-C dims (final printed)
 c_w         = 8.31;
 c_h         = 3.2;
 c_cap       = 2.0;
 c_floor     = 1.6;
 
-// Pod footprint Ñ sized to fit USB-A (widest)
-pod_y       = a_w + wall * 2;     // 16.0mm front to back
-pod_x       = a_h + wall * 2;     // 9.5mm along strip
+pod_y       = a_w + wall * 2;
+pod_x       = a_h + wall * 2;
 
-// Pod Z stack (bottom to top, above strip):
-//   c_floor = 1.6   USB-C base floor
-//   c_h     = 3.2   USB-C slot zone
-//   c_cap   = 2.0   USB-C grip cap = shared middle wall top
-//   a_floor = 1.6   shared middle wall (USB-A floor)
-//   a_h     = 5.5   USB-A slot zone
-//   a_cap   = 2.0   USB-A grip cap
-pod_z       = c_floor + c_h + c_cap + a_floor + a_h + a_cap;  // 15.9mm
+pod_z       = c_floor + c_h + c_cap + a_floor + a_h + a_cap;
 
 c_slot_z    = c_floor;
 a_slot_z    = c_floor + c_h + c_cap + a_floor;
@@ -67,29 +55,37 @@ module cut_front(txt, sz, cx, cz) {
                      font="Liberation Sans:style=Bold");
 }
 
+module cut_rear(txt, sz, cx, cz) {
+    translate([cx, pod_y - depth + 0.01, cz])
+        rotate([-90, 0, 0])
+            linear_extrude(depth + 0.01)
+                text(txt, size=sz, halign="center", valign="center",
+                     font="Liberation Sans:style=Bold");
+}
+
 module pod(idx) {
     fl = front_letters[idx];
     difference() {
         cube([pod_x, pod_y, pod_z]);
 
-        // USB-C oval slot Ñ bottom zone, cuts through c_h + c_cap (open top of C)
+        // USB-C oval slot
         translate([0, 0, c_slot_z])
             oval_centered(c_w, pod_x/2, pod_y/2, c_h + c_cap + 0.1);
 
-        // USB-A rectangular slot Ñ top zone, cuts through a_h + a_cap (open top)
+        // USB-A rect slot
         translate([wall, wall, a_slot_z])
             cube([a_h, a_w, a_h + a_cap + 0.1]);
 
-        // Floor vent through C floor only
+        // Floor vent
         translate([pod_x/2 - vent_w/2, pod_y/2 - vent_d/2, -0.1])
             cube([vent_w, vent_d, c_floor + 0.2]);
 
-        // Front face: USBBUDDY letters (pods 1-8)
+        // Front: USBBUDDY letters
         if (fl != "") {
             cut_front(fl, 4.5, pod_x/2, pod_z * 0.5);
         }
 
-        // Front face: end pod connector markers
+        // Front: end pod markers
         if (idx == 0) {
             cut_front("C", 3.2, pod_x/2, pod_z * 0.65);
             cut_front("v", 2.8, pod_x/2, pod_z * 0.22);
@@ -99,7 +95,23 @@ module pod(idx) {
             cut_front("^", 2.8, pod_x/2, pod_z * 0.55);
         }
 
-        // Rear face: BLANK Ñ nothing cut here
+        // Rear: yury-g split across left 2 pods
+        // Pod 0: yury   Pod 1: -g
+        if (idx == 0) {
+            cut_rear("yury", 2.8, pod_x/2, pod_z * 0.5);
+        }
+        if (idx == 1) {
+            cut_rear("-g", 2.8, pod_x/2, pod_z * 0.5);
+        }
+
+        // Rear: 2026 split across right 2 pods
+        // Pod 8: 20   Pod 9: 26
+        if (idx == num_slots - 2) {
+            cut_rear("20", 2.8, pod_x/2, pod_z * 0.5);
+        }
+        if (idx == num_slots - 1) {
+            cut_rear("26", 2.8, pod_x/2, pod_z * 0.5);
+        }
     }
 }
 
