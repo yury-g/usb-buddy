@@ -1,7 +1,6 @@
-// USB BUDDY Ñ v4
+// USB BUDDY Ñ v5
 // Front: C | U S B B U D D Y | A
-// Rear: y u r y - g (pods 0-5) | 2 0 2 6 (pods 6-9)
-// One character per pod on rear
+// Rear: y u r y g _ 2 0 2 6 (one char per pod)
 
 num_slots   = 10;
 wall        = 2.0;
@@ -33,7 +32,7 @@ vent_w      = 1.6;
 vent_d      = pod_y - 4.0;
 
 front_letters = ["", "U", "S", "B", "B", "U", "D", "D", "Y", ""];
-rear_letters  = ["y", "u", "r", "y", "-", "g", "2", "0", "2", "6"];
+rear_letters  = ["y", "u", "r", "y", "g", "_", "2", "0", "2", "6"];
 
 module oval_centered(sw, cx, cy, h) {
     r   = c_h / 2;
@@ -68,23 +67,18 @@ module pod(idx) {
     difference() {
         cube([pod_x, pod_y, pod_z]);
 
-        // USB-C oval slot
         translate([0, 0, c_slot_z])
             oval_centered(c_w, pod_x/2, pod_y/2, c_h + c_cap + 0.1);
 
-        // USB-A rect slot
         translate([wall, wall, a_slot_z])
             cube([a_h, a_w, a_h + a_cap + 0.1]);
 
-        // Floor vent
         translate([pod_x/2 - vent_w/2, pod_y/2 - vent_d/2, -0.1])
             cube([vent_w, vent_d, c_floor + 0.2]);
 
-        // Front: USBBUDDY
         if (fl != "") {
             cut_front(fl, 4.5, pod_x/2, pod_z * 0.5);
         }
-        // Front: end markers
         if (idx == 0) {
             cut_front("C", 3.2, pod_x/2, pod_z * 0.65);
             cut_front("v", 2.8, pod_x/2, pod_z * 0.22);
@@ -94,12 +88,10 @@ module pod(idx) {
             cut_front("^", 2.8, pod_x/2, pod_z * 0.55);
         }
 
-        // Rear: one char per pod
         cut_rear(rl, 4.5, pod_x/2, pod_z * 0.5);
     }
 }
 
-// Compliant strip
 difference() {
     cube([strip_len, pod_y, strip_t]);
     for (i = [0 : num_slots - 1]) {
@@ -109,7 +101,6 @@ difference() {
     }
 }
 
-// Pods
 for (i = [0 : num_slots - 1]) {
     translate([i * pitch, 0, strip_t])
         pod(i);
