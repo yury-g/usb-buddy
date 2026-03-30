@@ -1,6 +1,7 @@
-// USB BUDDY Ñ v6
+// USB BUDDY Ñ v7
 // Front: C | U S B B U D D Y | A
-// Rear: y u r y g [BT] 2 0 2 6  Ñ Bluetooth symbol on pod 5
+// Rear: y u r y g [BT-outline] 2 0 2 6
+// BT symbol: Nordic B outline Ñ spine + two triangle outlines, stroke-cut into rear face
 
 num_slots   = 10;
 wall        = 2.0;
@@ -34,30 +35,15 @@ vent_d      = pod_y - 4.0;
 front_letters = ["", "U", "S", "B", "B", "U", "D", "D", "Y", ""];
 rear_letters  = ["y", "u", "r", "y", "g", "", "2", "0", "2", "6"];
 
-// Bluetooth symbol as 2D polygon, centered at origin, h = total height
-module bt_symbol_2d(h) {
-    s = h * 0.08;  // stroke width
-    // Vertical spine
-    translate([-s/2, -h/2])
-        square([s, h]);
-    // Upper-right arm: spine top -> right-middle -> spine center
-    hull() {
-        translate([-s/2, h*0.25])  square([s, s]);
-        translate([h*0.32, h*0.0])  square([s, s]);
-    }
-    hull() {
-        translate([h*0.32, h*0.0])  square([s, s]);
-        translate([-s/2, -h*0.27]) square([s, s]);
-    }
-    // Lower-right arm: spine center -> right-lower -> spine bottom
-    hull() {
-        translate([-s/2, -h*0.27]) square([s, s]);
-        translate([h*0.32, -h*0.48]) square([s, s]);
-    }
-    hull() {
-        translate([h*0.32, -h*0.48]) square([s, s]);
-        translate([-s/2, -h*0.5-s]) square([s, s]);
-    }
+module oval_centered(sw, cx, cy, h) {
+    r   = c_h / 2;
+    sep = sw - c_h;
+    translate([cx, cy - sep/2, 0])
+        hull() {
+            cylinder(h = h, r = r, $fn = 32);
+            translate([0, sep, 0])
+                cylinder(h = h, r = r, $fn = 32);
+        }
 }
 
 module cut_front(txt, sz, cx, cz) {
@@ -76,12 +62,46 @@ module cut_rear(txt, sz, cx, cz) {
                      font="Liberation Sans:style=Bold");
 }
 
-module cut_rear_bt(cx, cz, h) {
+// Nordic B outline Ñ cut into rear face (Y=pod_y)
+// s = half-height of symbol
+// stroke t = line thickness for printable outline
+// Spine + upper triangle outline + lower triangle outline
+// All as thin linear_extrude slabs from rear face
+module cut_rear_bt(cx, cz) {
+    s  = 6.5;   // half-height Ñ symbol total height = 13mm, larger than letters
+    t  = 0.9;   // stroke thickness
+    tx = 14.5;  // tip x offset (right-pointing triangles)
+
     translate([cx, pod_y - depth + 0.01, cz])
         rotate([-90, 0, 0])
-            linear_extrude(depth + 0.01)
-                translate([0, -h/2])
-                    bt_symbol_2d(h);
+            linear_extrude(depth + 0.01) {
+                // Spine
+                translate([-t/2, -s])
+                    square([t, s*2]);
+                // Upper triangle Ñ 3 strokes
+                // left leg: from (0,-s) to (0,0) Ñ covered by spine
+                // top-left to tip: (0,-s) -> (tx,-(s/2))
+                hull() {
+                    translate([-t/2, -s])       square([t, t]);
+                    translate([tx-t/2, -s/2-t/2]) square([t, t]);
+                }
+                // tip to center: (tx,-(s/2)) -> (0,0)
+                hull() {
+                    translate([tx-t/2, -s/2-t/2]) square([t, t]);
+                    translate([-t/2, -t/2])       square([t, t]);
+                }
+                // Lower triangle
+                // center to tip: (0,0) -> (tx, s/2)
+                hull() {
+                    translate([-t/2, -t/2])       square([t, t]);
+                    translate([tx-t/2, s/2-t/2])  square([t, t]);
+                }
+                // tip to bottom: (tx, s/2) -> (0,s)
+                hull() {
+                    translate([tx-t/2, s/2-t/2])  square([t, t]);
+                    translate([-t/2, s-t])         square([t, t]);
+                }
+            }
 }
 
 module pod(idx) {
@@ -90,19 +110,15 @@ module pod(idx) {
     difference() {
         cube([pod_x, pod_y, pod_z]);
 
-        // USB-C oval slot
         translate([0, 0, c_slot_z])
             oval_centered(c_w, pod_x/2, pod_y/2, c_h + c_cap + 0.1);
 
-        // USB-A rect slot
         translate([wall, wall, a_slot_z])
             cube([a_h, a_w, a_h + a_cap + 0.1]);
 
-        // Floor vent
         translate([pod_x/2 - vent_w/2, pod_y/2 - vent_d/2, -0.1])
             cube([vent_w, vent_d, c_floor + 0.2]);
 
-        // Front: USBBUDDY
         if (fl != "") {
             cut_front(fl, 4.5, pod_x/2, pod_z * 0.5);
         }
@@ -115,27 +131,14 @@ module pod(idx) {
             cut_front("^", 2.8, pod_x/2, pod_z * 0.55);
         }
 
-        // Rear: one char per pod, BT symbol on pod 5
         if (idx == 5) {
-            cut_rear_bt(pod_x/2, pod_z * 0.5, 5.0);
+            cut_rear_bt(pod_x/2, pod_z * 0.5);
         } else if (rl != "") {
             cut_rear(rl, 4.5, pod_x/2, pod_z * 0.5);
         }
     }
 }
 
-module oval_centered(sw, cx, cy, h) {
-    r   = c_h / 2;
-    sep = sw - c_h;
-    translate([cx, cy - sep/2, 0])
-        hull() {
-            cylinder(h = h, r = r, $fn = 32);
-            translate([0, sep, 0])
-                cylinder(h = h, r = r, $fn = 32);
-        }
-}
-
-// Compliant strip
 difference() {
     cube([strip_len, pod_y, strip_t]);
     for (i = [0 : num_slots - 1]) {
@@ -145,7 +148,6 @@ difference() {
     }
 }
 
-// Pods
 for (i = [0 : num_slots - 1]) {
     translate([i * pitch, 0, strip_t])
         pod(i);
