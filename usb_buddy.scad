@@ -1,5 +1,6 @@
-// USB BUDDY Ñ v8
-// BT symbol stepped down: s=4.5 (9mm total, matches letter height feel)
+// USB BUDDY Ñ v9
+// Fix 1: BT symbol centered Ñ spine offset left by tx/2 so symbol optical center = pod_x/2
+// Fix 2: USB-C oval verified Ñ hull of two circles, c_h=3.2 oval, c_w=8.31
 
 num_slots   = 10;
 wall        = 2.0;
@@ -33,9 +34,11 @@ vent_d      = pod_y - 4.0;
 front_letters = ["", "U", "S", "B", "B", "U", "D", "D", "Y", ""];
 rear_letters  = ["y", "u", "r", "y", "g", "", "2", "0", "2", "6"];
 
+// USB-C oval: hull of two circles of radius r=c_h/2
+// centered at (cx, cy), total width = c_w, height = c_h
 module oval_centered(sw, cx, cy, h) {
     r   = c_h / 2;
-    sep = sw - c_h;
+    sep = sw - c_h;   // distance between circle centers
     translate([cx, cy - sep/2, 0])
         hull() {
             cylinder(h = h, r = r, $fn = 32);
@@ -60,34 +63,39 @@ module cut_rear(txt, sz, cx, cz) {
                      font="Liberation Sans:style=Bold");
 }
 
+// Nordic B outline centered
+// Symbol spans from x = -tx/2 to x = tx/2 (symmetric around 0)
+// spine at x=0, tip at x=tx/2, leftmost extent at x=-t/2
+// To center: shift entire symbol left by tx/4 so visual center = 0
 module cut_rear_bt(cx, cz) {
-    s  = 4.5;   // half-height Ñ 9mm total, larger than letters but not huge
-    t  = 0.8;   // stroke thickness
-    tx = 10.0;  // tip x offset
+    s   = 4.5;    // half-height
+    t   = 0.8;    // stroke thickness
+    tx  = 10.0;   // tip reach (right of spine)
+    ox  = -tx/2;  // horizontal offset to center optically
 
     translate([cx, pod_y - depth + 0.01, cz])
         rotate([-90, 0, 0])
             linear_extrude(depth + 0.01) {
                 // Spine
-                translate([-t/2, -s])
+                translate([ox - t/2, -s])
                     square([t, s*2]);
                 // Upper triangle: top -> tip -> center
                 hull() {
-                    translate([-t/2, -s])         square([t, t]);
-                    translate([tx-t/2, -s/2-t/2]) square([t, t]);
+                    translate([ox - t/2, -s])           square([t, t]);
+                    translate([ox + tx - t/2, -s/2-t/2]) square([t, t]);
                 }
                 hull() {
-                    translate([tx-t/2, -s/2-t/2]) square([t, t]);
-                    translate([-t/2, -t/2])        square([t, t]);
+                    translate([ox + tx - t/2, -s/2-t/2]) square([t, t]);
+                    translate([ox - t/2, -t/2])           square([t, t]);
                 }
                 // Lower triangle: center -> tip -> bottom
                 hull() {
-                    translate([-t/2, -t/2])        square([t, t]);
-                    translate([tx-t/2, s/2-t/2])   square([t, t]);
+                    translate([ox - t/2, -t/2])           square([t, t]);
+                    translate([ox + tx - t/2, s/2 - t/2]) square([t, t]);
                 }
                 hull() {
-                    translate([tx-t/2, s/2-t/2])   square([t, t]);
-                    translate([-t/2, s-t])          square([t, t]);
+                    translate([ox + tx - t/2, s/2 - t/2]) square([t, t]);
+                    translate([ox - t/2, s - t])           square([t, t]);
                 }
             }
 }
@@ -98,15 +106,19 @@ module pod(idx) {
     difference() {
         cube([pod_x, pod_y, pod_z]);
 
+        // USB-C oval slot Ñ bottom zone
         translate([0, 0, c_slot_z])
             oval_centered(c_w, pod_x/2, pod_y/2, c_h + c_cap + 0.1);
 
+        // USB-A rect slot Ñ top zone
         translate([wall, wall, a_slot_z])
             cube([a_h, a_w, a_h + a_cap + 0.1]);
 
+        // Floor vent
         translate([pod_x/2 - vent_w/2, pod_y/2 - vent_d/2, -0.1])
             cube([vent_w, vent_d, c_floor + 0.2]);
 
+        // Front letters
         if (fl != "") cut_front(fl, 4.5, pod_x/2, pod_z * 0.5);
         if (idx == 0) {
             cut_front("C", 3.2, pod_x/2, pod_z * 0.65);
@@ -117,6 +129,7 @@ module pod(idx) {
             cut_front("^", 2.8, pod_x/2, pod_z * 0.55);
         }
 
+        // Rear
         if (idx == 5) {
             cut_rear_bt(pod_x/2, pod_z * 0.5);
         } else if (rl != "") {
