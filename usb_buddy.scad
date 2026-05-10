@@ -1,4 +1,4 @@
-// USB BUDDY Ñ v17
+// USB BUDDY ï¿½ v17
 // strip_t=1.2mm, gap=2.0mm, 2mm chamfer on vertical edges
 // Chamfer starts at z=ch from pod base so base is flush on strip
 
@@ -39,7 +39,7 @@ module oval_thru(sw,cx,cy,h) {
     }
 }
 
-// Chamfer only on upper portion Ñ base ch mm is square (flush on strip)
+// Chamfer only on upper portion ï¿½ base ch mm is square (flush on strip)
 module chamfered_pod() {
     difference() {
         cube([pod_x, pod_y, pod_z]);
