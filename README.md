@@ -8,7 +8,7 @@
 
 [**Download USB Buddy v18 →**](https://github.com/yury-g/usb-buddy/raw/refs/heads/main/usb_buddy_v18.stl) · [Edit the design](usb_buddy.scad)
 
-![Orange USB Buddy on a walnut desk in warm evening light](docs/images/lifestyle-evening.jpg)
+![Mint-green USB Buddy on a light bamboo surface](docs/images/lifestyle-sage.jpg)
 
 </div>
 
@@ -29,11 +29,7 @@ Four cables loop back into their own pods. The rest of the strip holds a mix of 
 
 **The holder grips USB-A and USB-C ends.** A cable with micro-USB at its other end parks by its USB-A end; there's no dedicated micro-USB slot.
 
-![Sage USB Buddy on a pale oak tabletop in afternoon sunlight](docs/images/lifestyle-sage.jpg)
-
-A small home for the cables you reach for every day.
-
-<sub>Connector views are CAD renders with illustrative cables. Tabletop scenes are AI-generated visualizations based on the design.</sub>
+<sub>Connector views are CAD renders with illustrative cables. The tabletop scene is an AI-generated visualization based on the design.</sub>
 
 ## Print it. Loop it. Park it.
 
