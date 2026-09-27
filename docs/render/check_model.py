@@ -17,7 +17,10 @@ def interior_triangles(m):
     out = set()
     for p in m.polygons:
         vertices = [m.vertices[i].co for i in p.vertices]
-        if all(1 < v.x < 112 and 1 < v.y < 15 for v in vertices):
+        # The exterior underside can be retriangulated during a label union.
+        # Compare the actual opening walls and internal faces, not that flat base.
+        if (any(v.z > 0.001 for v in vertices) and
+                all(1 < v.x < 112 and 1 < v.y < 15 for v in vertices)):
             out.add(tuple(sorted(tuple(round(c, 4) for c in v) for v in vertices)))
     return out
 bpy.ops.wm.stl_import(filepath=str(root / 'usb_buddy_v17.stl'))
