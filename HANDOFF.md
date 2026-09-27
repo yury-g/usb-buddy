@@ -41,9 +41,21 @@ In the modeled parked configuration, the A metal tip ends at z=9 mm and the C
 tip at z=6.5 mm. This leaves a 2.5 mm gap in the visualization. The holder is
 passive storage and does not electrically join either connector.
 
-Drawer concepts are deferred at the user's request and are excluded from the
-page. The only AI-generated published image is the clearly captioned sage
-desk lifestyle view; mechanism images use the actual mesh.
+The front-page explanation now uses separate A/C insertion close-ups and one
+mixed load: four looped cables, six cables parked by their A ends (three with
+micro-USB loose ends), and two more cables parked by C ends. Micro-USB plugs are
+not shown inserted into this holder. The original four arrangements remain in
+an expandable gallery.
+
+The user subsequently requested the drawer concept again. The same-drawer
+before/after is a native CAD mockup with the actual v18 body and five cables.
+The eight-second orbit uses the exact current STL and shows both sides and
+underside. Both tabletop lifestyle images are clearly captioned AI visualizations.
+
+The current download is explicitly named `usb_buddy_v18.stl`; `usb_buddy.stl`
+remains an identical latest-model alias. A BambuStudio computational slice with
+supports, brim, raft and skirt disabled succeeded; see [validation details](docs/verification.md)
+for settings, messages and physical-test limitations.
 
 ## Earlier records
 

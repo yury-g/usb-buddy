@@ -2,70 +2,92 @@
 
 # USB BUDDY
 
-### A little home for every cable end.
+### A little order for your everyday cables.
 
-**10 pods · USB-A + USB-C · One printable piece**
+**One-piece print · No assembly · Designed for support-free printing**
 
-[Download the STL](https://github.com/yury-g/usb-buddy/raw/refs/heads/main/usb_buddy.stl) · [Explore the design](usb_buddy.scad) · [Get the cable models](docs/models/usb-buddy-cable-scenes.blend)
+[**Download USB Buddy v18 →**](https://github.com/yury-g/usb-buddy/raw/refs/heads/main/usb_buddy_v18.stl) · [See it from every side](#a-small-design-from-every-angle) · [Edit the design](usb_buddy.scad)
 
-![Orange USB Buddy with recessed USB BUDDY lettering and a raised A on the right outer end](docs/images/product-orange.jpg)
+![Orange USB Buddy on a walnut desk in warm evening light](docs/images/lifestyle-evening.jpg)
 
 </div>
 
-Loose ends deserve a place to land. **USB Buddy** parks USB-A and USB-C connectors in a compact, 3D-printable strip. Each pod accepts an A end from above and a C end from below—so you can keep both ends of one cable together, or give two different cables a shared parking spot.
+The charging cable. The camera cable. The one you always have to untangle first.
 
-Print it. Loop it. Park it.
+USB Buddy gives their loose ends a place to land. Ten small pods hold USB-A connectors from above and USB-C connectors from below. Loop both ends of a cable into one pod, park different cables side by side, or mix the two. It's a small, useful thing you can print in a color you like.
 
-## One cable. Both ends. Same pod.
+## Two openings. One simple idea.
 
-Take a USB-A–to–USB-C cable. Insert its A end into the rectangular opening and its C end into the oval opening underneath. The cable loops back to the same pod, with both ends accounted for.
-
-| Start with one | Fill the strip |
+| USB-A goes in above | USB-C goes in below |
 | :---: | :---: |
-| ![One continuous black USB-A to USB-C cable with both ends parked in the same pod](docs/images/01-cable-loop.jpg) | ![Ten continuous cables, each looping from the A opening to the C opening of its own pod](docs/images/10-cable-loop.jpg) |
-| **1 cable · 1 pod · both ends parked** | **10 cables · 10 pods · 20 ends parked** |
+| ![Close-up of a USB-A plug aligned above its rectangular opening, with an insertion arrow](docs/images/detail-usb-a.jpg) | ![Close-up from underneath showing a USB-C plug aligned with its oval opening and an insertion arrow](docs/images/detail-usb-c.jpg) |
+| Park the familiar rectangular end in the top of a pod. | Park the smaller oval end underneath the same pod. |
 
-## Or share a pod between two cables.
+The raised **A ↑** and **C ↓** markings live on the outer ends, keeping the recessed **USB BUDDY** lettering clear across the front.
 
-An A end from one cable goes in above. A C end from a second cable goes in below. Follow the dark and light cables in these renders: they stay separate, with their other ends free.
+## Your cables don't all have to match.
 
-| Two cables, one pod | Every pod occupied |
-| :---: | :---: |
-| ![A dark cable parks its USB-A end above while a separate light cable parks its USB-C end below in the same pod](docs/images/01-cable-pair.jpg) | ![Ten dark cables above and ten light cables below, twenty separate cables sharing ten pods](docs/images/10-cable-pair.jpg) |
-| **2 separate cables · 1 pod** | **20 separate cables · 10 pods** |
+![USB Buddy holding four complete A-to-C cable loops, six additional cables with mixed USB-C and micro-USB loose ends, and two more cables parked underneath](docs/images/mixed-cable-load.jpg)
 
-USB Buddy is a passive storage holder. The connectors park inside it; it provides no electrical connection, charging or data transfer.
+Four cables loop back into their own pods. The rest of the strip holds a mix of everyday cables, including ones with micro-USB on the loose end. A couple of pods share space between two separate cables.
+
+**The holder grips USB-A and USB-C ends.** A cable with micro-USB at its other end parks by its USB-A end; there's no dedicated micro-USB slot.
 
 <details>
-<summary><strong>Look inside one pod</strong></summary>
+<summary><strong>Explore both ways to fill the strip</strong></summary>
 
-<p align="center">
-  <img src="docs/images/pod-cutaway.jpg" width="460" alt="Section through one actual pod with USB-A entering above and USB-C below; their illustrative tips stop short of each other">
-</p>
+| Both ends of the same cable | Both ends of ten cables |
+| :---: | :---: |
+| ![One cable looped into one pod](docs/images/01-cable-loop.jpg) | ![Ten cables looped into ten pods](docs/images/10-cable-loop.jpg) |
 
-The front half of one pod is removed here to expose the connector positions. The A and C openings form a stepped internal passage. The illustrated tips stop short of each other; the precise seating depth depends on your cables and print fit. This is storage, not an adapter.
+| Two different cables share a pod | Twenty cables share ten pods |
+| :---: | :---: |
+| ![Two separate cables with one A end above and one C end below](docs/images/01-cable-pair.jpg) | ![Twenty separate cables, one A and one C end parked in each pod](docs/images/10-cable-pair.jpg) |
 
 </details>
 
-## Small details. Plenty of character.
+<details>
+<summary><strong>Look inside a pod</strong></summary>
 
-- **A clean front.** Recessed “USB BUDDY” lettering spans the middle eight pods.
-- **Directions at the ends.** Matching raised A/C letters and arrows sit on the two outer end faces, out of the wordmark's way.
-- **A connected strip.** Ten pods share a 1.2 mm base, with 2 mm gaps between them.
-- **Chamfered corners.** 2 mm chamfers give the pods their distinctive shape.
-- **Your filament, your color.** A small object can still feel at home on your desk.
+<p align="center">
+<img src="docs/images/pod-cutaway.jpg" width="440" alt="Actual pod cutaway with illustrative USB-A and USB-C tips entering from opposite directions">
+</p>
+
+The cutaway shows the stepped interior and the two parked connector tips. Their exact seating depth depends on your cables and print fit. USB Buddy is a passive holder: it does not electrically connect the plugs, charge devices or transfer data.
+
+</details>
+
+## A calmer cable drawer.
+
+![The same oak drawer before and after: five tangled cables, then the same five cables neatly coiled with their USB-A ends parked in USB Buddy](docs/images/drawer-before-after.jpg)
+
+A few loose coils, the connector ends in one place, and a little less rummaging. This before-and-after is a conceptual CAD mockup using the real organizer geometry.
+
+## A small design, from every angle.
+
+[![A looping 360-degree orbit of USB Buddy showing the front, rear, both end labels and underside openings](docs/images/usb-buddy-orbit.gif)](docs/images/usb-buddy-orbit.mp4)
+
+The animation uses the same v18 mesh as the download. **[Watch the MP4](docs/images/usb-buddy-orbit.mp4)** · [See a still view](docs/images/product-orange.jpg)
+
+Ten chamfered pods. A thin connecting strip. Raised directions at the ends. Nothing to put together after printing.
+
+## Make it feel at home.
 
 | Tangerine / soft studio light | Sage / soft studio light | Graphite / cool edge light |
 | :---: | :---: | :---: |
-| ![Tangerine USB Buddy in soft studio light](docs/images/product-orange.jpg) | ![Sage USB Buddy showing its raised C end label](docs/images/product-sage.jpg) | ![Graphite USB Buddy with cool edge lighting](docs/images/product-graphite.jpg) |
+| ![Tangerine USB Buddy](docs/images/product-orange.jpg) | ![Sage USB Buddy with raised C end label](docs/images/product-sage.jpg) | ![Graphite USB Buddy with cool lighting](docs/images/product-graphite.jpg) |
 
-![Sage USB Buddy on a pale oak desk in warm afternoon window light](docs/images/lifestyle-sage.jpg)
+![Sage USB Buddy on a pale oak tabletop in afternoon sunlight](docs/images/lifestyle-sage.jpg)
 
-<sub>Studio and cable views are rendered from the v18 printable mesh. Cable models illustrate the storage arrangements and are not physical fit-test results. The desk scene is an AI-generated lifestyle visualization based on the CAD render; colors are filament suggestions.</sub>
+Choose a quiet color for your desk, or something bright enough to spot in a drawer.
 
-## Make your own
+<sub>Product, mechanism, drawer and animation views are CAD renders. Cable models illustrate the storage arrangements, not physical fit-test results. The two tabletop lifestyle scenes are AI-generated visualizations based on the CAD renders. Colors are filament suggestions.</sub>
 
-**[Download USB Buddy v18](https://github.com/yury-g/usb-buddy/raw/refs/heads/main/usb_buddy.stl)** and open it in your slicer. The source is editable in [OpenSCAD](usb_buddy.scad).
+## Print it. Loop it. Park it.
+
+**[Download the current v18 STL](https://github.com/yury-g/usb-buddy/raw/refs/heads/main/usb_buddy_v18.stl)**
+
+**Prints in one piece. No assembly or extra hardware. Designed for support-free printing.**
 
 | Setting | Starting point |
 | :--- | :--- |
@@ -73,22 +95,25 @@ The front half of one pod is removed here to expose the connector positions. The
 | Layer height | 0.2 mm |
 | Infill | 20% or more |
 | Orientation | Continuous flat strip on the bed |
-| Supports | Start without supports; inspect the small raised end labels in your slicer |
-| Overall size | 114.2 × 16 × 16.3 mm, including the raised end labels |
+| Supports | Off |
+| Brim / raft | Not used in the reference slice |
+| Overall size | 114.2 × 16 × 16.3 mm, including raised end labels |
 
-**Current revision: v18.** This moves the connector markings to the ends with 0.6 mm relief. The connector interiors are unchanged from v17; the updated mesh passes the OpenSCAD manifold check. The new labels still need a physical print check. The [previous v17 STL](usb_buddy_v17.stl) remains available.
+The v18 mesh is one connected, closed part. It has been computationally sliced with supports, brim and raft disabled. **The new raised labels still await a physical print check.** See the [validation notes](docs/verification.md) for the tested settings and slicer limitations.
 
-The project records report physical fit testing for the original **12.0 × 5.5 mm USB-A opening** and **8.31 × 3.2 mm USB-C opening**. Cable housings and printer tolerances vary, so check your own fit before loading the strip. The thin PLA base is intended to flex slightly; avoid forcing tight bends.
+The original project records report fit testing for the **12.0 × 5.5 mm USB-A opening** and **8.31 × 3.2 mm USB-C opening**. Those interiors are unchanged in v18. Check your own cables and printer tolerances; the thin PLA base is intended for gentle flex, not tight bends.
 
-## Inside the project
+## Files for making—and making it yours.
 
 | File | What's inside |
 | :--- | :--- |
-| [usb_buddy.stl](usb_buddy.stl) | Current v18 printable model |
-| [usb_buddy.scad](usb_buddy.scad) | Parametric design source |
-| [Cable scene models](docs/models/usb-buddy-cable-scenes.blend) | Editable USB-A/USB-C plugs, continuous cable curves, four storage scenes, cutaway and color views |
-| [Rendering guide](docs/render/README.md) | Reproduce the images and verify the revised geometry |
-| [Current design notes](HANDOFF.md) | Dimensions, validation and remaining print checks |
-| [Earlier project notes](docs/archive/README-v17.md) | Original development timeline and fit-test file history |
+| [usb_buddy_v18.stl](usb_buddy_v18.stl) | Current v18 download, with matching raised labels on the outer ends |
+| [usb_buddy.stl](usb_buddy.stl) | Latest-model alias; currently identical to v18 |
+| [usb_buddy.scad](usb_buddy.scad) | Editable OpenSCAD design |
+| [Cable scenes](docs/models/usb-buddy-cable-scenes.blend) | Reusable USB-A/USB-C models and the four storage arrangements |
+| [Detail and mixed-load scenes](docs/models/usb-buddy-details.blend) | Insertion close-ups, micro-USB loose ends and the mixed cable display |
+| [Rendering guide](docs/render/README.md) | Reproduce the visuals |
+| [Design notes](HANDOFF.md) | Current dimensions and print checks |
+| [v17 model](usb_buddy_v17.stl) · [Earlier notes](docs/archive/README-v17.md) | Previous revision and development history |
 
 Designed by [Yury Gitman](https://github.com/yury-g) · 2026

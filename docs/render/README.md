@@ -35,10 +35,35 @@ and editable cable curves; select a named scene in Blender to explore a layout.
 The other scenes are `product-orange`, `product-sage` and `product-graphite`.
 The older `render_product.py` is a simple CAD reference-render helper.
 
+## Insertion details and mixed load
+
+```sh
+blender --background --python-exit-code 1 --python docs/render/render_details.py
+```
+
+This adds separate USB-A and USB-C insertion close-ups and `mixed-cable-load`:
+four looped A-to-C cables, three A-to-Micro-B cables, three additional A-to-C
+cables, and two additional cables parked by C ends. The Micro-B ends are free;
+the model does not gain a micro-USB socket. The editable scenes are in
+`docs/models/usb-buddy-details.blend`.
+
+## Orbit and drawer
+
+`render_orbit.py` renders the exact current STL with a looping camera orbit,
+including an underside view. Its docstring contains the render and encoding
+commands. Deliverables are an eight-second animated GIF, an H.264 MP4 and an
+editable Blender scene. Encoding uses FFmpeg.
+
+`render_drawer.py` builds the same oak drawer twice, with five tangled cables
+on one side and five color-matched organized cables on the other. The actual
+v18 model lies on its back, with the wordmark facing up and the USB-A openings
+facing toward the cable coils. This is a conceptual CAD mockup, not a photograph.
+
 ## Lifestyle image
 
-`docs/images/lifestyle-sage.jpg` was generated with the built-in image generation
-tool using the v18 sage CAD render as its reference. It is explicitly labeled as
-a visualization in the README. The final prompt is in
-[`lifestyle-prompt.txt`](lifestyle-prompt.txt). Earlier v17 and drawer experiments
-are not part of the published asset set.
+`docs/images/lifestyle-sage.jpg` and `lifestyle-evening.jpg` were generated with
+the built-in image generation tool using v18 CAD renders as references. They are
+explicitly labeled as visualizations in the README. Final prompts are in
+[`lifestyle-prompt.txt`](lifestyle-prompt.txt) and
+[`lifestyle-evening-prompt.txt`](lifestyle-evening-prompt.txt).
+Earlier v17 and AI drawer experiments are not part of the published asset set.
