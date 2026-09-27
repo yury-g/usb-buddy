@@ -118,7 +118,7 @@ def setup(name,product_mat=orange):
     bpy.context.window.scene=scene
     bpy.ops.wm.stl_import(filepath=str(ROOT/'usb_buddy.stl'))
     obj=bpy.context.object
-    obj.name='USB BUDDY / exact v18 printable mesh'
+    obj.name='USB BUDDY / exact v19 printable mesh'
     obj.location=(-56.5,-8,0)
     obj.data.materials.append(product_mat)
     scene.render.engine='CYCLES'

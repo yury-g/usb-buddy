@@ -6,13 +6,13 @@
 
 **One-piece print · No assembly · Designed for support-free printing**
 
-[**Download USB Buddy v18 →**](https://github.com/yury-g/usb-buddy/raw/refs/heads/main/usb_buddy_v18.stl) · [Edit the design](usb_buddy.scad)
+[**Download USB Buddy v19 →**](https://github.com/yury-g/usb-buddy/raw/refs/heads/main/usb_buddy_v19.stl) · [Edit the design](usb_buddy.scad)
 
 ![Mint-green USB Buddy on a light bamboo surface](docs/images/lifestyle-sage.jpg)
 
 </div>
 
-Give your loose cable ends a place to land. USB Buddy has ten pods for USB-A and USB-C connectors. Loop both ends of a cable into one pod, park different cables side by side, or mix the two.
+**One little print. Up to 20 cables organized.** Ten pods hold both ends of 10 USB-A-to-C cables, or one end each of 20 separate cables—10 USB-A and 10 USB-C. Mix the two arrangements to suit your cables.
 
 ## Two openings. One simple idea.
 
@@ -33,7 +33,7 @@ Four cables loop back into their own pods. The rest of the strip holds a mix of 
 
 ## Print it. Loop it. Park it.
 
-**[Download the current v18 STL](https://github.com/yury-g/usb-buddy/raw/refs/heads/main/usb_buddy_v18.stl)**
+**[Download the current v19 STL](https://github.com/yury-g/usb-buddy/raw/refs/heads/main/usb_buddy_v19.stl)**
 
 | Setting | Starting point |
 | :--- | :--- |
@@ -43,9 +43,9 @@ Four cables loop back into their own pods. The rest of the strip holds a mix of 
 | Orientation | Continuous flat strip on the bed |
 | Supports | Off |
 | Brim / raft | Not used in the reference slice |
-| Overall size | 114.2 × 16 × 16.3 mm, including raised end labels |
+| Overall size | 114.2 × 16.6 × 16.3 mm, including raised lettering |
 
-The one-piece v18 model has been sliced with supports, brim and raft disabled. **The raised end labels still await a physical print check.** Connector fit depends on your cables and printer tolerances. USB Buddy is a storage holder; it does not charge or connect devices.
+The one-piece v19 model has been sliced with supports, brim and raft disabled. **The raised lettering still awaits a physical print check.** Connector fit depends on your cables and printer tolerances. USB Buddy is a storage holder; it does not charge or connect devices.
 
 [Print checks and dimensions](docs/verification.md) · [Editable OpenSCAD source](usb_buddy.scad) · [Design notes](HANDOFF.md) · [Rendering files](docs/render/README.md)
 

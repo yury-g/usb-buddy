@@ -15,7 +15,7 @@ blender --background --python-exit-code 1 --python docs/render/render_cables.py
 ```
 
 The check fails on the original v17 STL because its instruction labels are
-recessed on the front. On v18 it checks the end embossing and unchanged connector
+recessed on the front. On v19 it checks front/end embossing, a single closed component and unchanged connector
 interiors against `usb_buddy_v17.stl`.
 
 ## Scene inventory
@@ -47,7 +47,10 @@ cables, and two additional cables parked by C ends. The Micro-B ends are free;
 the model does not gain a micro-USB socket. The editable scenes are in
 `docs/models/usb-buddy-details.blend`.
 
-## Orbit and drawer
+## Archived v18 orbit and drawer
+
+The saved orbit, drawer and evening lifestyle assets are retained v18 experiments,
+not linked from the README. Regenerating them uses the current STL.
 
 `render_orbit.py` renders the exact current STL with a looping camera orbit,
 including an underside view. Its docstring contains the render and encoding
@@ -61,9 +64,11 @@ facing toward the cable coils. This is a conceptual CAD mockup, not a photograph
 
 ## Lifestyle image
 
-`docs/images/lifestyle-sage.jpg` and `lifestyle-evening.jpg` were generated with
-the built-in image generation tool using v18 CAD renders as references. They are
-explicitly labeled as visualizations in the README. Final prompts are in
+`docs/images/lifestyle-sage.jpg` was edited with the built-in image generation
+tool to show the v19 raised wordmark, preserving the approved scene. The README
+labels it as a visualization. `lifestyle-evening.jpg` remains an unused v18 image.
+The current hero edit prompt is in [`lifestyle-v19-prompt.txt`](lifestyle-v19-prompt.txt).
+Original prompts are in
 [`lifestyle-prompt.txt`](lifestyle-prompt.txt) and
 [`lifestyle-evening-prompt.txt`](lifestyle-evening-prompt.txt).
 Earlier v17 and AI drawer experiments are not part of the published asset set.

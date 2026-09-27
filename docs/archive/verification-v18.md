@@ -1,4 +1,4 @@
-# v19 computational checks
+# v18 computational checks
 
 Checked September 27, 2026. No physical print was made during this update.
 
@@ -7,11 +7,10 @@ Checked September 27, 2026. No physical print was made during this update.
 - OpenSCAD Manifold backend: NoError, genus 10.
 - One connected, closed mesh: 2,328 welded vertices, 4,692 faces.
 - Zero nonmanifold edges.
-- Overall bounds: 114.2 × 16.6 × 16.3 mm.
-- Original connector interior faces match v17. The front USB BUDDY wordmark now projects 0.6 mm outward, matching
-  the raised end labels. Each letter is fused to the body. The rear maker/date
-  mark remains recessed.
-- `usb_buddy.stl` and `usb_buddy_v19.stl` are identical copies of the current model.
+- Overall bounds: 114.2 × 16 × 16.3 mm.
+- Original connector interior faces match v17. The change removes the old
+  front A/C instructions and adds 0.6 mm raised markings on the outer end faces.
+- `usb_buddy.stl` and `usb_buddy_v18.stl` are identical copies of the current model.
 
 ## Reference slice
 
@@ -26,7 +25,7 @@ BambuStudio 02.00.03.54 completed the slice with exit code 0:
 | Orientation | Flat connecting strip on bed |
 | Supports / raft / brim / skirt | Disabled |
 | Layers | 81 |
-| Estimated model filament | 16.60 g |
+| Estimated model filament | 16.63 g |
 | Support metadata | support_used=false |
 
 The reference profile is a computational check, not a requirement to own an A1.
@@ -38,9 +37,9 @@ The slice reported no unsupported-region warning. Some paths are classified as
 overhang walls, including raised-label paths, and internal paths include bridging
 at z=7.2 mm. The physical appearance and retention still need a print check.
 
-The slice metadata includes a bed-temperature warning for the Generic PLA
-profile. It is therefore not described as a warning-free validation.
-The previous revision's check is preserved in [v18 verification](archive/verification-v18.md).
+The successful slice logged seven internal `ZFiller: encounter idx from clip`
+messages and a warning about the Generic PLA profile's 65°C textured-plate
+temperature. It is therefore not described as a warning-free validation.
 
 Support-free does not mean zero waste: ordinary printer priming can still consume
 filament. No support structures, raft, brim, separate assembly or extra hardware

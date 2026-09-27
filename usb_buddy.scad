@@ -1,4 +1,4 @@
-// USB BUDDY — v18: matched raised connector labels on outer ends
+// USB BUDDY — v19: raised front wordmark and matched raised end labels
 // strip_t=1.2mm, gap=2.0mm, 2mm chamfer on vertical edges
 // Chamfer starts at z=ch from pod base so base is flush on strip
 
@@ -6,7 +6,8 @@ num_slots   = 10;
 wall        = 2.0;
 strip_t     = 1.2;
 gap         = 2.0;
-depth       = 0.7;
+depth       = 0.7; // Rear maker-mark recess only
+label_relief = 0.6;
 ch          = 2.0;
 
 a_w         = 12.0;
@@ -39,7 +40,7 @@ module oval_thru(sw,cx,cy,h) {
     }
 }
 
-// Chamfer only on upper portion � base ch mm is square (flush on strip)
+// Chamfer only on upper portion — base ch mm is square (flush on strip)
 module chamfered_pod() {
     difference() {
         cube([pod_x, pod_y, pod_z]);
@@ -52,8 +53,8 @@ module chamfered_pod() {
     }
 }
 
-module cut_front(txt,sz,cx,cz) {
-    translate([cx,depth-0.01,cz]) rotate([90,0,0]) linear_extrude(depth+0.01)
+module raised_front(txt,sz,cx,cz) {
+    translate([cx,0.05,cz]) rotate([90,0,0]) linear_extrude(label_relief+0.05)
         text(txt,size=sz,halign="center",valign="center",font="Liberation Sans:style=Bold");
 }
 
@@ -74,13 +75,12 @@ difference() {
             cube([gap,pod_y,pod_z+0.1]);
 
     for (i=[0:num_slots-1]) {
-        fl=front_letters[i]; rl=rear_letters[i];
+        rl=rear_letters[i];
         translate([i*pitch,0,-0.1])
             oval_thru(c_w,pod_x/2,pod_y/2,c_slot_h);
         translate([i*pitch,0,strip_t]) {
             translate([wall,wall,c_top_z]) cube([pod_x-wall*2,pod_y-wall*2,air_slot_h]);
             translate([wall,wall,a_slot_z]) cube([a_h,a_w,a_h+a_cap+0.1]);
-            if (fl!="") cut_front(fl,4.5,pod_x/2,a_slot_z+a_h*0.45);
             if (rl!="") cut_rear(rl,4.5,pod_x/2,pod_z*0.5);
         }
     }
@@ -88,7 +88,12 @@ difference() {
 
 // Same font, size, relief and centered placement on both outer end faces.
 // These marks add material outside the pod; connector geometry is unchanged.
-label_relief = 0.6;
+// The front wordmark uses the same 0.6 mm relief as the end labels.
+for (i=[0:num_slots-1])
+    if (front_letters[i]!="")
+        translate([i*pitch,0,strip_t])
+            raised_front(front_letters[i],4.5,pod_x/2,a_slot_z+a_h*0.45);
+
 module direction_arrow(up=true) {
     scale([1,up ? 1 : -1])
         polygon([[-0.4,-1.2],[0.4,-1.2],[0.4,0.2],
