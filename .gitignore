@@ -1,0 +1,5 @@
+.DS_Store
+*.blend1
+docs/images/*.png
+.preview/
+__pycache__/

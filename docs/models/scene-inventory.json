@@ -1,0 +1,22 @@
+{
+  "01-cable-loop": {
+    "occupied_pods": 1,
+    "parked_ends": 2,
+    "distinct_cables": 1
+  },
+  "10-cable-loop": {
+    "occupied_pods": 10,
+    "parked_ends": 20,
+    "distinct_cables": 10
+  },
+  "01-cable-pair": {
+    "occupied_pods": 1,
+    "parked_ends": 2,
+    "distinct_cables": 2
+  },
+  "10-cable-pair": {
+    "occupied_pods": 10,
+    "parked_ends": 20,
+    "distinct_cables": 20
+  }
+}

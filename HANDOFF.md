@@ -1,114 +1,52 @@
-# USB BUDDY Ñ Handoff to Next Claude Session
-## Project Location
-Machine: Mac Mini (mininarwhal)
-Path: ~/Documents/usb-buddy/
-Git: initialized, currently at v17 (main branch)
-Tag: v16-chamfer-good (last fully clean version)
+# USB Buddy â€” current design notes
 
-## What This Is
-USB BUDDY is a 10-pod cable organizer strip that holds both USB-A and USB-C cables.
-- USB-A male connector inserts from the TOP of each pod
-- USB-C male connector inserts from the BOTTOM of each pod
-- Both slots share the same pod Ñ stacked vertically
-- 10 pods connected by a flexible strip (0.9mm compliant hinge base)
-- Prints flat on bed, used standing upright
+## v18 Â· September 27, 2026
 
-## Current Design State (v17)
-File: usb_buddy.scad + usb_buddy.stl
+User-approved change: move the A/C instructions off the front onto the two
+outer end faces. Use the same font and size, with raised letters and arrows.
+Keep the recessed USB BUDDY wordmark.
 
-### Key Dimensions
-- wall = 2.0mm
-- strip_t = 1.2mm (thickened from 0.9 for strength)
-- gap = 2.0mm between pods (widened for flex)
-- ch = 2.0mm chamfer on vertical pod edges (starts at z=ch from base)
-- pod_x = 9.5mm (along strip, sized to USB-A height + walls)
-- pod_y = 16.0mm (front to back)
-- pod_z = ~17.6mm total height
+- Letters: Liberation Sans Bold, 4.2 mm nominal text size.
+- Relief: 0.6 mm, overlapping the body by 0.05 mm for a solid union.
+- Left end: C and downward arrow. Right end: A and upward arrow.
+- Original body: 113 Ã— 16 Ã— 16.3 mm.
+- Including relief: 114.2 Ã— 16 Ã— 16.3 mm.
+- Pod body: 9.5 Ã— 16 Ã— 15.1 mm, on a 1.2 mm base.
+- Gap: 2 mm. Pod pitch: 11.5 mm. Count: 10.
+- Slot dimensions unchanged: A 12 Ã— 5.5 mm; C 8.31 Ã— 3.2 mm.
 
-### Z Stack (pod-local, above strip):
-- 0..1.6mm       = USB-C base floor
-- 1.6..4.8mm     = USB-C oval slot (8.31mm wide x 3.2mm tall)
-- 4.8..6.8mm     = USB-C cap/grip (2mm)
-- 6.8..7.6mm     = 0.8mm separator (structural, internal air gap cut through it)
-- 7.6..13.1mm    = USB-A rect slot (12.0mm wide x 5.5mm tall)
-- 13.1..15.1mm   = USB-A cap/grip (2mm)
+## Validation and limits
 
-### Slot Dimensions (locked from physical fit test prints):
-- USB-A: 12.0mm wide x 5.5mm tall (rectangular)
-- USB-C: 8.31mm wide x 3.2mm tall (oval Ñ hull of two circles)
+OpenSCAD Manifold export reports NoError, genus 10. Blender geometry checks
+confirm raised end bounds, blank front end pods, unchanged height/depth,
+and identical interior triangles compared with the preserved v17 STL.
 
-### Front Face Labels (USBBUDDY):
-pods: [blank, U, S, B, B, U, D, D, Y, blank]
-- Pod 0 (left end): C marker + v arrow (USB-C indicator, bottom insert)
-- Pod 9 (right end): A marker + ^ arrow (USB-A indicator, top insert)
+The old notes reported physical testing for the A and C opening dimensions.
+No new physical print or cable retention test has been performed for v18.
+Check raised-label readability, print quality and retention with actual cables.
 
-### Rear Face Labels:
-pods: [y, u, r, y, g, blank, 2, 0, 2, 6]
-reads: yuryg 2026
+The source's cuts overlap to form a continuous stepped passage. The old
+description of enclosed internal air cavities is not an accurate description
+of the current mesh. The older height estimate of approximately 17.6 mm is also
+superseded by the measured 16.3 mm body height including base.
 
-## Git History Summary
-- v1: initial combined A+C design
-- v5: yuryg_2026 rear labels
-- v10f: no vents (USB slots ARE the airflow), Genus 0 manifold Ñ GOOD BASE
-- v13: BT symbol removed, pod 5 rear blank
-- v14: thin separator replaces blocking shelf
-- v15: 1mm chamfer added
-- v16: chamfer increased to 2mm Ñ TAG: v16-chamfer-good
-- v17: strip 1.2mm, gap 2.0mm, chamfer starts at z=ch (current)
+## Visualization models
 
-## Mesh Status
-- manifold: NoError (printable)
-- Genus: 10 (10 enclosed internal air cavities Ñ expected, not a print issue)
-- Slicers (Bambu/Prusa) handle this fine
+The Blender file has named scenes for one and ten A-to-C cable loops, one and
+ten pairs of separate cables, a pod section, and three product colors.
+The plugs and cables are illustrative models built for these renders; they
+are not certified connector models or a physical fit validation.
 
-## Known Issues / Next Steps
-1. Genus 10 is benign but worth resolving cleanly Ñ the air gap internal
-   cavity creates enclosed voids. Could remove the air gap cut entirely
-   (sep=0.8mm is thin enough electrically) or find a way to connect it
-   to an outer face without breaching walls.
-2. Labels on end pods (C/v and A/^) need position review Ñ may be
-   too close together vertically given the new pod_z height.
-3. Consider adding a small text label on the TOP EDGE of each pod
-   (reads when looking down) Ñ good for desk use.
-4. USB-C test strip (separate file in ~/Documents/usb-holders/) confirmed
-   8.31mm as best fit from physical testing.
-5. USB-A test strip confirmed 12.0mm as best fit.
-6. Both test STLs in ~/Downloads/ with dated filenames.
+In the modeled parked configuration, the A metal tip ends at z=9 mm and the C
+tip at z=6.5 mm. This leaves a 2.5 mm gap in the visualization. The holder is
+passive storage and does not electrically join either connector.
 
-## How to Push to GitHub (manual step needed)
-gh CLI not installed on Mini. To push:
-  cd ~/Documents/usb-buddy
-  git remote add origin https://github.com/yury-g/usb-buddy.git
-  git push -u origin main
-  git push --tags
+Drawer concepts are deferred at the user's request and are excluded from the
+page. The only AI-generated published image is the clearly captioned sage
+desk lifestyle view; mechanism images use the actual mesh.
 
-Or install gh CLI first:
-  brew install gh
-  gh auth login
-  gh repo create usb-buddy --public --source=. --remote=origin --push
+## Earlier records
 
-## Related Projects
-- ~/Documents/usb-holders/ Ñ USB-A and USB-C fit test strips (v8-final, v10-final)
-  Both have their own git repos. USB-A locked at 12.0mm, USB-C locked at 8.31mm.
-- ~/Documents/sh1106-comparison/ Ñ SH1106 OLED comparison (parked)
-
-## SSH Access (from M4 Air or anywhere)
-ssh mininarwhal (via ~/.ssh/config alias)
-or: ssh mininarwhal@192.168.1.26
-
-## OpenSCAD Render Command
-/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD --render -o usb_buddy.stl usb_buddy.scad
-
-## File Write Pattern (AppleScript Ñ ONLY method that works)
-set code to "// scad content here"
-set fp to open for access (POSIX file "/Users/mininarwhal/Documents/usb-buddy/usb_buddy.scad") with write permission
-set eof fp to 0
-write code to fp
-close access fp
-
-## Design Philosophy
-- Minimal material Ñ walls only as thick as needed for grip strength
-- USB slots are the only airflow (no separate vents needed)
-- Flex strip connects pods Ñ prints flat, flexes at gaps when standing
-- Labels serve dual purpose: product identity (front) + maker mark (rear)
-- 2mm chamfer on vertical edges for feel and print quality
+The unmodified [v17 handoff](docs/archive/HANDOFF-v17.md) and
+[v17 README](docs/archive/README-v17.md) preserve the prior session history.
+Some named fit-test files in those records are not included in this repository.

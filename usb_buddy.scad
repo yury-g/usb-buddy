@@ -1,4 +1,4 @@
-// USB BUDDY � v17
+// USB BUDDY — v18: matched raised connector labels on outer ends
 // strip_t=1.2mm, gap=2.0mm, 2mm chamfer on vertical edges
 // Chamfer starts at z=ch from pod base so base is flush on strip
 
@@ -81,9 +81,28 @@ difference() {
             translate([wall,wall,c_top_z]) cube([pod_x-wall*2,pod_y-wall*2,air_slot_h]);
             translate([wall,wall,a_slot_z]) cube([a_h,a_w,a_h+a_cap+0.1]);
             if (fl!="") cut_front(fl,4.5,pod_x/2,a_slot_z+a_h*0.45);
-            if (i==0){ cut_front("C",3.2,pod_x/2,c_floor+c_h*0.5); cut_front("v",2.0,pod_x/2,c_floor*0.45); }
-            if (i==num_slots-1){ cut_front("A",3.2,pod_x/2,a_slot_z+a_h*0.5); cut_front("^",2.0,pod_x/2,a_slot_z+a_h+a_cap*0.5); }
             if (rl!="") cut_rear(rl,4.5,pod_x/2,pod_z*0.5);
         }
     }
 }
+
+// Same font, size, relief and centered placement on both outer end faces.
+// These marks add material outside the pod; connector geometry is unchanged.
+label_relief = 0.6;
+module direction_arrow(up=true) {
+    scale([1,up ? 1 : -1])
+        polygon([[-0.4,-1.2],[0.4,-1.2],[0.4,0.2],
+                 [1.2,0.2],[0,1.4],[-1.2,0.2],[-0.4,0.2]]);
+}
+module end_label(letter, right=false) {
+    translate([right ? strip_len-0.05 : 0.05, pod_y/2, (strip_t+pod_z)/2])
+        multmatrix(right ? [[0,0,1,0],[1,0,0,0],[0,1,0,0],[0,0,0,1]]
+                          : [[0,0,-1,0],[-1,0,0,0],[0,1,0,0],[0,0,0,1]])
+            linear_extrude(label_relief+0.05) {
+                text(letter,size=4.2,halign="center",valign="center",
+                     font="Liberation Sans:style=Bold");
+                translate([0,right ? 4 : -4]) direction_arrow(right);
+            }
+}
+end_label("C");
+end_label("A",true);
